@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.helpers.NumberHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,10 +28,10 @@ class MainActivity : AppCompatActivity() {
         )
         with(binding) {
             content.text = post.content
-            likesCount.text = post.likeCount.toString()
+            likesCount.text = NumberHelper.intToShortString(post.likeCount)
             published.text = post.published
             author.text = post.author
-            sharedCount.text = shareCountText(post.shareCount)
+            sharedCount.text = NumberHelper.intToShortString(post.shareCount)
             if (post.likeByMe) {
                 likes.setImageResource(R.drawable.like_active)
             }
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 post.likeByMe = !post.likeByMe
                 if (post.likeByMe) {
                     post.likeCount++
-                    likesCount.text = post.likeCount.toString()
+                    likesCount.text = NumberHelper.intToShortString(post.likeCount)
                     likes.setImageResource(R.drawable.like_active)
                 } else {
                     post.likeCount--
@@ -48,19 +49,9 @@ class MainActivity : AppCompatActivity() {
             }
             sharedIcon.setOnClickListener{
                 post.shareCount += 10
-                sharedCount.text = shareCountText(post.shareCount)
+                sharedCount.text = NumberHelper.intToShortString(post.shareCount)
             }
 
         }
-    }
-
-    private fun shareCountText(count: Int): String {
-        if (count >= 1_000_000) {
-            return  String.format("%.1fM", (count.toDouble() / 1_000_000.0))
-        }
-        if (count >= 1_000) {
-            return  String.format("%.1fK", (count.toDouble() / 1_000.0))
-        }
-        return count.toString()
     }
 }
