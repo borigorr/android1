@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             published.text = post.published
             author.text = post.author
             sharedCount.text = NumberHelper.intToShortString(post.shareCount)
+            viewCount.text = NumberHelper.intToShortString(post.viewCount)
             if (post.likeByMe) {
                 likes.setImageResource(R.drawable.like_active)
             }
@@ -44,11 +45,11 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     post.likeCount--
                     likes.setImageResource(R.drawable.baseline_favorite_border_24)
-                    likesCount.text = post.likeCount.toString()
+                    likesCount.text = NumberHelper.intToShortString(post.likeCount)
                 }
             }
             sharedIcon.setOnClickListener{
-                post.shareCount += 10
+                post.shareCount += 1
                 sharedCount.text = NumberHelper.intToShortString(post.shareCount)
             }
 

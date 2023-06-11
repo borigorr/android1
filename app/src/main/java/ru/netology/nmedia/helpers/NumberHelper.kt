@@ -4,7 +4,13 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 
 object NumberHelper {
-     fun intToShortString(num: Int):  String {
+    fun intToShortString(num: Int): String {
+
+        if (num >= 10_000) {
+            val roundNum = (num.toDouble() / 1_000.0).toInt()
+            return "${roundNum}K"
+        }
+
         val df = DecimalFormat("#.#")
         df.roundingMode = RoundingMode.DOWN
 
