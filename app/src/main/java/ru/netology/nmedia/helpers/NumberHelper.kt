@@ -6,11 +6,6 @@ import java.text.DecimalFormat
 object NumberHelper {
     fun intToShortString(num: Int): String {
 
-        if (num >= 10_000) {
-            val roundNum = (num.toDouble() / 1_000.0).toInt()
-            return "${roundNum}K"
-        }
-
         val df = DecimalFormat("#.#")
         df.roundingMode = RoundingMode.DOWN
 
@@ -18,6 +13,12 @@ object NumberHelper {
             val roundNum = df.format(num.toDouble() / 1_000_000.0)
             return "${roundNum}M"
         }
+
+        if (num >= 10_000) {
+            val roundNum = (num.toDouble() / 1_000.0).toInt()
+            return "${roundNum}K"
+        }
+
         if (num >= 1_000) {
             val roundNum = df.format(num.toDouble() / 1_000.0)
             return "${roundNum}K"
