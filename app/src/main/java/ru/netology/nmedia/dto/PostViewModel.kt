@@ -1,12 +1,12 @@
 package ru.netology.nmedia.dto
 
-data class Post(
+data class PostViewModel(
     val id: Int,
     val author: String,
     val content: String,
     val published: String,
-    val likeCount: Int = 0,
-    val shareCount: Int = 0,
-    val viewCount: Int = 0,
+    val likeCount: String,
+    val shareCount: String,
+    val viewCount: String,
     val likeByMe: Boolean = false,
 )
