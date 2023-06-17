@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.trpository.PostViewModelRepository
+import ru.netology.nmedia.helpers.NumberHelper
+import ru.netology.nmedia.repository.PostViewModelRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,11 +19,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.data.observe(this) {
             with(binding) {
                 content.text = it.content
-                likesCount.text = it.likeCount
+                likesCount.text = NumberHelper.intToShortString( it.likeCount)
                 published.text = it.published
                 author.text = it.author
-                sharedCount.text = it.shareCount
-                viewCount.text = it.viewCount
+                sharedCount.text =  NumberHelper.intToShortString(it.shareCount)
+                viewCount.text = NumberHelper.intToShortString(it.viewCount)
                 if (it.likeByMe) {
                     likes.setImageResource(R.drawable.like_active)
                 } else {

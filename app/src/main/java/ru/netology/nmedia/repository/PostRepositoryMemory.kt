@@ -1,5 +1,7 @@
-package ru.netology.nmedia.trpository
+package ru.netology.nmedia.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.dto.Post
 
 class PostRepositoryMemory: PostRepository {
@@ -17,9 +19,9 @@ class PostRepositoryMemory: PostRepository {
                 "http://netolo.gy/fyb"
     )
 
-    override fun get(): Post {
-        return post
-    }
+    private val data = MutableLiveData(post)
+
+    override fun get(): LiveData<Post> = data
 
     override fun like() {
         var likeCount = this.post.likeCount
@@ -29,9 +31,11 @@ class PostRepositoryMemory: PostRepository {
             likeCount++
         }
         this.post = post.copy(likeByMe = !this.post.likeByMe, likeCount = likeCount)
+        this.data.value = this.post
     }
 
     override fun share() {
         this.post = post.copy(shareCount = post.shareCount + 1)
+        this.data.value = this.post
     }
 }
