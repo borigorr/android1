@@ -7,9 +7,9 @@ class PostViewModelRepository: ViewModel()
 
     private val postRepository: PostRepository = PostRepositoryMemory()
 
-    var data = postRepository.get()
+    var data = postRepository.getAll()
 
-    fun like() = postRepository.like()
+    fun likeById(id: Int) = postRepository.likeById(id)
 
-    fun share() =  postRepository.share()
+    fun shareById(id: Int) =  postRepository.shareById(id)
 }
