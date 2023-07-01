@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.helpers.NumberHelper
@@ -42,6 +43,7 @@ class PostViewHolder(
             viewCount.text = NumberHelper.intToShortString(post.viewCount)
             sharedCount.text = NumberHelper.intToShortString(post.shareCount)
             likesCount.text = NumberHelper.intToShortString(post.likeCount)
+            likes.setImageResource(if (post.likeByMe) R.drawable.like_active else R.drawable.baseline_favorite_border_24)
             likes.setOnClickListener() {
                 onClickLikeListener(post)
             }
