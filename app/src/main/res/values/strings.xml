@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="home_screen_text">My Application</string>
+    <string name="edit_message">Edit message</string>
+    <string name="edit_menu_title">Edit</string>
+    <string name="remove_menu_title">Remove</string>
+    <string name="error_empty_content">Empty content</string>
 </resources>
