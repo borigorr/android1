@@ -40,25 +40,19 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.edited.observe(this) { post ->
-            if (post.id == 0) {
-                binding.editTexGroup.visibility = View.GONE
-                return@observe
-            }
             if (post.content.isNullOrBlank()) {
                 binding.editTexGroup.visibility = View.GONE
             } else {
                 binding.editTexGroup.visibility = View.VISIBLE
             }
             binding.editText.text = post.content
-
             with(binding.content) {
                 requestFocus()
                 setText(post.content)
             }
         }
         binding.closeEdit.setOnClickListener {
-            binding.content.setText("")
-            viewModel.changeContent("")
+            viewModel.cancelEdit()
         }
         binding.save.setOnClickListener {
             with(binding.content) {

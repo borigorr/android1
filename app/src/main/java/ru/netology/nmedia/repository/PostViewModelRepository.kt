@@ -35,6 +35,10 @@ class PostViewModelRepository: ViewModel()
         edited.value = edited.value?.copy(content = text)
     }
 
+    fun cancelEdit() {
+        this.edited.value = empty.copy()
+    }
+
     fun save() {
         edited.value?.let {
             postRepository.save(it)
