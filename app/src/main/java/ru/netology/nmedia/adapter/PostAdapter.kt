@@ -47,13 +47,13 @@ class PostViewHolder(
             published.text = post.published
             content.text = post.content
             viewCount.text = NumberHelper.intToShortString(post.viewCount)
-            sharedCount.text = NumberHelper.intToShortString(post.shareCount)
-            likesCount.text = NumberHelper.intToShortString(post.likeCount)
-            likes.setImageResource(if (post.likeByMe) R.drawable.like_active else R.drawable.baseline_favorite_border_24)
+            shared.text = NumberHelper.intToShortString(post.shareCount)
+            likes.text = NumberHelper.intToShortString(post.likeCount)
+            likes.isChecked = post.likeByMe
             likes.setOnClickListener() {
                 interactionListener.onLike(post)
             }
-            sharedIcon.setOnClickListener() {
+            shared.setOnClickListener() {
                 interactionListener.onShare(post)
             }
             menu.setOnClickListener {
