@@ -21,6 +21,8 @@ class PostViewModelRepository: ViewModel()
 
     var data = postRepository.getAll()
 
+    fun getByIdOrEmpty(id: Int) = postRepository.getById(id) ?: empty.copy()
+
     fun likeById(id: Int) = postRepository.likeById(id)
 
     fun shareById(id: Int) =  postRepository.shareById(id)

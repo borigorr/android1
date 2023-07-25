@@ -77,6 +77,10 @@ class PostRepositoryMemory : PostRepository {
 
     override fun getAll(): LiveData<List<Post>> = data
 
+    override fun getById(id: Int): Post? {
+       return posts.firstOrNull { it.id == id }
+    }
+
     override fun likeById(id: Int) {
         posts = posts.map {
             if (it.id == id) {

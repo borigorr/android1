@@ -5,4 +5,6 @@
     <string name="edit_menu_title">Edit</string>
     <string name="remove_menu_title">Remove</string>
     <string name="error_empty_content">Empty content</string>
+    <string name="description_post_save">Save</string>
+    <string name="chooser_share_post">Share post</string>
 </resources>

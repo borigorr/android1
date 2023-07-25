@@ -6,4 +6,6 @@
     <string name="edit_menu_title">Изменить</string>
     <string name="remove_menu_title">Удалить</string>
     <string name="error_empty_content">Пустое сообщение</string>
+    <string name="description_post_save">Сохранить</string>
+    <string name="chooser_share_post">Поделиться</string>
 </resources>

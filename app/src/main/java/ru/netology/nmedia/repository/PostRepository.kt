@@ -8,6 +8,8 @@ interface PostRepository {
 
     fun getAll(): LiveData<List<Post>>
 
+    fun getById(id: Int): Post?
+
     fun likeById(id: Int)
 
     fun shareById(id: Int)
