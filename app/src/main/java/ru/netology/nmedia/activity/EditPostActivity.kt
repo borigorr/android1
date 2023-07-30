@@ -11,7 +11,6 @@ class EditPostActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewPostBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -21,9 +20,11 @@ class EditPostActivity : AppCompatActivity() {
 
         val content = intent.getStringExtra(POST_CONTENT)
         val id = intent.getIntExtra(POST_ID, 0)
+        val inputLink = intent.getStringExtra(POST_URL)
 
         with(binding) {
             edit.setText(content)
+            link.setText(inputLink)
             ok.setOnClickListener {
                 val intent = Intent()
                 if (binding.edit.text.isNullOrBlank()) {
@@ -31,6 +32,7 @@ class EditPostActivity : AppCompatActivity() {
                 } else {
                     intent.putExtra(POST_CONTENT, edit.text.toString())
                         .putExtra(POST_ID, id)
+                        .putExtra(POST_URL, link.text.toString())
                     setResult(Activity.RESULT_OK, intent)
                 }
                 finish()

@@ -5,4 +5,5 @@
     <dimen name="icon_text_spacing">6dp</dimen>>
     <dimen name="icon_button_min_size">48dp</dimen>
     <dimen name="icon_button_padding">12dp</dimen>
+    <dimen name="padding_input_text">16dp</dimen>
 </resources>

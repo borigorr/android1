@@ -17,7 +17,7 @@ class EditPostResultContract : ActivityResultContract<PostEdit, PostEdit?>() {
         return Intent(context, EditPostActivity::class.java)
             .putExtra(POST_ID, input.id)
             .putExtra(POST_CONTENT, input.content)
-        //   .putExtra(POST_CONTENT, input.content)
+            .putExtra(POST_URL, input.link)
     }
 
 
@@ -25,7 +25,8 @@ class EditPostResultContract : ActivityResultContract<PostEdit, PostEdit?>() {
         return if (resultCode == Activity.RESULT_OK) {
             val id = intent?.getIntExtra(POST_ID, 0) ?: 0
             val content = intent?.getStringExtra(POST_CONTENT)
-            PostEdit(id = id, content = content)
+            val link = intent?.getStringExtra(POST_URL)
+            PostEdit(id = id, content = content, link = link)
         } else {
             null
         }

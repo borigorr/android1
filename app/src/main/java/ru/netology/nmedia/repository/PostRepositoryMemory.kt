@@ -112,13 +112,14 @@ class PostRepositoryMemory : PostRepository {
 
     override fun save(post: Post) {
         if (post.id == 0) {
-            posts +=  post.copy(id = nextId++)
+            var newPosts = listOf(post.copy(id = nextId++))
+            posts = newPosts + posts
             data.value = posts
             return
         }
         posts = this.posts.map {
             if (it.id == post.id) {
-                post.copy(content = post.content)
+                post.copy(content = post.content, linkToVideo = post.linkToVideo)
             } else {
                 it
             }

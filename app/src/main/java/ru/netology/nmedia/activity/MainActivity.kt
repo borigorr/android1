@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             result ?: return@registerForActivityResult
             val content = result.content.let { it ?: "" }
             val id = result.id
-            var post = viewModel.getByIdOrEmpty(id).copy(content = content)
+            var post = viewModel.getByIdOrEmpty(id).copy(content = content, linkToVideo = result.link)
             viewModel.edit(post)
             viewModel.save()
         }
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEdit(post: Post) {
-                editPostLauncher.launch(PostEdit(id = post.id, content = post.content))
+                editPostLauncher.launch(PostEdit(id = post.id, content = post.content, link = post.linkToVideo))
             }
         })
 

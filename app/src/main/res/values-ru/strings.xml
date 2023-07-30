@@ -8,4 +8,6 @@
     <string name="error_empty_content">Пустое сообщение</string>
     <string name="description_post_save">Сохранить</string>
     <string name="chooser_share_post">Поделиться</string>
+    <string name="edit_input_hint">Пост</string>
+    <string name="link_input_hint">Ссылка</string>
 </resources>
