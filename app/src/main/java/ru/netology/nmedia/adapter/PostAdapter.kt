@@ -23,6 +23,8 @@ interface OnInteractionListener {
     fun onEdit(post: Post)
 
     fun onRemove(post: Post)
+
+    fun onClickVideo(post: Post)
 }
 
 class PostAdapter(private val interactionListener: OnInteractionListener) :
@@ -60,8 +62,7 @@ class PostViewHolder(
                 }
                 video.visibility = View.VISIBLE
                 video.setOnClickListener {
-                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    binding.root.context.startActivity(intent)
+                    interactionListener.onClickVideo(post)
                 }
             }
             likes.setOnClickListener() {

@@ -1,6 +1,7 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.launch
@@ -55,6 +56,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 editPostLauncher.launch(PostEdit(id = post.id, content = post.content, link = post.linkToVideo))
+            }
+
+            override fun onClickVideo(post: Post) {
+                var intent = Intent(Intent.ACTION_VIEW, Uri.parse(post.linkToVideo))
+                binding.root.context.startActivity(intent)
             }
         })
 

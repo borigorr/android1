@@ -61,26 +61,28 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="avatar,published" />
 
-    <ImageView
-        android:id="@+id/video"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrierHeader"
-        android:visibility="gone"
-        app:srcCompat="@drawable/video" />
 
     <TextView
         android:id="@+id/content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:autoLink="all"
-        app:layout_constraintBottom_toTopOf="@id/barrierContent"
+        app:layout_constraintBottom_toTopOf="@id/video"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/video"
+        app:layout_constraintTop_toBottomOf="@id/barrierHeader"
         tools:text="@sample/posts.json/data/content" />
+
+
+    <ImageView
+        android:id="@+id/video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/barrierContent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content"
+        android:visibility="gone"
+        app:srcCompat="@drawable/video" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierContent"
