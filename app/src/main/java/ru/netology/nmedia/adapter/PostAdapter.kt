@@ -58,6 +58,7 @@ class PostViewHolder(
             likes.isChecked = post.likeByMe
             post.linkToVideo.let {url ->
                 if (url.isNullOrEmpty()) {
+                    video.visibility = View.GONE
                     return return@let
                 }
                 video.visibility = View.VISIBLE
