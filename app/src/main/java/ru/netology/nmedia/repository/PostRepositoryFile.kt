@@ -13,29 +13,33 @@ class PostRepositoryFile(
 
     private val gson = Gson()
     private val filename = "posts.json"
-    private var nextId = 1
-    private var posts = emptyList<Post>()
+    private var nextId: Int
     private val data = MutableLiveData(posts)
+    private var posts: List<Post>
+        get() {
+            return context.openFileInput(filename).bufferedReader().use {
+                gson.fromJson(
+                    it,
+                    TypeToken.getParameterized(List::class.java, Post::class.java).type
+                )
+            }
+        }
+        set(value) {
+            context.openFileOutput(filename, Context.MODE_PRIVATE).bufferedWriter().use {
+                it.write(gson.toJson(value))
+            }
+        }
+
 
     init {
         val file = context.filesDir.resolve(filename)
-        if (file.exists()) {
-            context.openFileInput(filename).bufferedReader().use {
-                posts = gson.fromJson(it, TypeToken.getParameterized(List::class.java, Post::class.java).type)
-                data.value = posts
+        if (!file.exists()) {
+            context.openFileOutput(filename, Context.MODE_PRIVATE).bufferedWriter().use {
+                it.write(gson.toJson(emptyList<Post>()))
             }
-
-        } else {
-            sync()
         }
+        nextId = (posts.maxOfOrNull { it.id } ?: 0) + 1
     }
-
-    private fun sync() {
-        context.openFileOutput(filename, Context.MODE_PRIVATE).bufferedWriter().use {
-            it.write(gson.toJson(posts))
-        }
-    }
-
     override fun getAll(): LiveData<List<Post>> = data
 
     override fun getById(id: Int): Post? {
@@ -53,7 +57,6 @@ class PostRepositoryFile(
                 it
             }
         }
-        sync()
         this.data.value = posts
 
     }
@@ -66,14 +69,12 @@ class PostRepositoryFile(
                 it
             }
         }
-        sync()
         this.data.value = posts
 
     }
 
     override fun removeById(id: Int) {
         posts = this.posts.filter { it.id != id }
-        sync()
         data.value = posts
     }
 
@@ -91,7 +92,6 @@ class PostRepositoryFile(
                 it
             }
         }
-        sync()
         data.value = posts
     }
 }
