@@ -25,6 +25,8 @@ interface OnInteractionListener {
     fun onRemove(post: Post)
 
     fun onClickVideo(post: Post)
+
+    fun onClickRoot(post: Post)
 }
 
 class PostAdapter(private val interactionListener: OnInteractionListener) :
@@ -49,6 +51,9 @@ class PostViewHolder(
 ) : ViewHolder(binding.root) {
     fun bind(post: Post) {
         binding.apply {
+            root.setOnClickListener {
+                interactionListener.onClickRoot(post)
+            }
             author.text = post.author
             published.text = post.published
             content.text = post.content

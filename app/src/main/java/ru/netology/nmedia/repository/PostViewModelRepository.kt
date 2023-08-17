@@ -20,6 +20,8 @@ class PostViewModelRepository(context: Application) : AndroidViewModel(context) 
 
     val edited = MutableLiveData(empty)
 
+    val viewPost = MutableLiveData(empty)
+
     private val postRepository: PostRepository = PostRepositoryFile(context)
 
     var data = postRepository.getAll()
@@ -27,8 +29,6 @@ class PostViewModelRepository(context: Application) : AndroidViewModel(context) 
     fun getByIdOrEmpty(id: Int) = postRepository.getById(id) ?: empty.copy()
 
     fun likeById(id: Int) = postRepository.likeById(id)
-
-    fun shareById(id: Int) = postRepository.shareById(id)
 
     fun removeById(id: Int) = postRepository.removeById(id)
 
