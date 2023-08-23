@@ -21,6 +21,8 @@ import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.databinding.FragmentPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.helpers.NumberHelper
+import ru.netology.nmedia.repository.PostDraftRepository
+import ru.netology.nmedia.repository.PostDraftRepositoryPreferenceImpl
 import ru.netology.nmedia.repository.PostViewModelRepository
 
 class PostFragment : Fragment() {

@@ -94,17 +94,6 @@ class PostRepositoryMemory : PostRepository {
         }
         this.data.value = posts
     }
-
-    override fun shareById(id: Int) {
-        posts = posts.map {
-            if (it.id == id) {
-                it.copy(shareCount = it.shareCount + 1)
-            } else {
-                it
-            }
-        }
-        this.data.value = posts
-    }
     override fun removeById(id: Int) {
         this.posts = this.posts.filter { it.id != id }
         this.data.value = this.posts

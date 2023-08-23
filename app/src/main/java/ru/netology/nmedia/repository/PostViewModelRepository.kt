@@ -1,10 +1,9 @@
 package ru.netology.nmedia.repository
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.dto.Post
 
 
@@ -22,7 +21,9 @@ class PostViewModelRepository(context: Application) : AndroidViewModel(context) 
 
     val viewPost = MutableLiveData(empty)
 
-    private val postRepository: PostRepository = PostRepositoryFile(context)
+    private val postRepository: PostRepository = PostRepositorySQLiteImpl(
+        AppDb.getInstance(context).postDao
+    )
 
     var data = postRepository.getAll()
 

@@ -1,8 +1,12 @@
 package ru.netology.nmedia.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.Navigation.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.helpers.IntArg
@@ -36,5 +40,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         var Bundle.editText: String? by StringArg
         var Bundle.editLink: String? by StringArg
         var Bundle.editId: Int? by IntArg
+        val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "post-draft")
     }
 }
