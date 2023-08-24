@@ -101,7 +101,9 @@ class PostDaoImpl(private val db: SQLiteDatabase): PostDao {
                 published = getString(getColumnIndexOrThrow(PostColumns.COLUMN_PUBLISHED)),
                 likeByMe = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_LIKED_BY_ME)) != 0,
                 likeCount = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_LIKES)),
-                linkToVideo = getString(getColumnIndexOrThrow(PostColumns.COLUMN_LINK_TO_VIDEO))
+                linkToVideo = getString(getColumnIndexOrThrow(PostColumns.COLUMN_LINK_TO_VIDEO)),
+                shareCount = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_SHARE_COUNT)),
+                viewCount = getInt(getColumnIndexOrThrow(PostColumns.COLUMN_VIEW_COUNT)),
             )
         }
     }
@@ -118,6 +120,15 @@ class PostDaoImpl(private val db: SQLiteDatabase): PostDao {
             ${PostColumns.COLUMN_LIKES} INTEGER NOT NULL DEFAULT 0
         );
         """.trimIndent()
+
+        val Migration1 = """
+            ALTER TABLE ${PostColumns.TABLE} ADD COLUMN ${PostColumns.COLUMN_VIEW_COUNT} INTEGER NOT NULL DEFAULT 0;
+        """.trimIndent()
+
+        val Migration2 = """
+            ALTER TABLE ${PostColumns.TABLE} ADD COLUMN ${PostColumns.COLUMN_SHARE_COUNT} INTEGER NOT NULL DEFAULT 0;
+        """.trimIndent()
+
     }
 
     object PostColumns {
@@ -129,6 +140,8 @@ class PostDaoImpl(private val db: SQLiteDatabase): PostDao {
         const val COLUMN_LIKED_BY_ME = "likedByMe"
         const val COLUMN_LIKES = "likes"
         const val COLUMN_LINK_TO_VIDEO = "link_to_video"
+        const val COLUMN_VIEW_COUNT = "view_count"
+        const val COLUMN_SHARE_COUNT = "share_count"
         val ALL_COLUMNS = arrayOf(
             COLUMN_ID,
             COLUMN_AUTHOR,
@@ -137,6 +150,8 @@ class PostDaoImpl(private val db: SQLiteDatabase): PostDao {
             COLUMN_LIKED_BY_ME,
             COLUMN_LIKES,
             COLUMN_LINK_TO_VIDEO,
+            COLUMN_VIEW_COUNT,
+            COLUMN_SHARE_COUNT,
         )
     }
 }

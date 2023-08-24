@@ -71,6 +71,10 @@ class EditPostFragment : Fragment() {
                 )
                 viewModel.edit(post)
                 viewModel.save()
+                runBlocking {
+                    draftRepo.setText("")
+                    draftRepo.setLink("")
+                }
                 findNavController().navigateUp()
             }
         }

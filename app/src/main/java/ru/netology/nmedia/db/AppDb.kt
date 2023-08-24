@@ -16,13 +16,13 @@ import ru.netology.nmedia.dao.PostDaoImpl
             fun getInstance(context: Context): AppDb {
                 return instance ?: synchronized(this) {
                     instance ?: AppDb(
-                        buildDatabase(context, arrayOf(PostDaoImpl.DDL))
+                        buildDatabase(context, arrayOf(PostDaoImpl.DDL, PostDaoImpl.Migration1, PostDaoImpl.Migration2))
                     ).also { instance = it }
                 }
             }
 
             private fun buildDatabase(context: Context, DDLs: Array<String>) = DbHelper(
-                context, 1, "app.db", DDLs,
+                context, 2, "app.db", DDLs,
             ).writableDatabase
         }
 }
@@ -36,7 +36,10 @@ class DbHelper(context: Context, dbVersion: Int, dbName: String, private val DDL
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        TODO("Not implemented")
+        if (oldVersion >= 1) {
+            db.execSQL(DDLs[1])
+            db.execSQL(DDLs[2])
+        }
     }
 
     override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
