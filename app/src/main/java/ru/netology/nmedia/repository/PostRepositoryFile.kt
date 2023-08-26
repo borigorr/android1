@@ -81,4 +81,16 @@ class PostRepositoryFile(
         }
         data.value = posts
     }
+
+    override fun shareById(id: Int) {
+        posts = posts.map {
+            if (it.id == id) {
+                it.copy(shareCount = it.shareCount + 1)
+            } else {
+                it
+            }
+        }
+        this.data.value = posts
+
+    }
 }

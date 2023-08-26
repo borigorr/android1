@@ -47,4 +47,15 @@ class PostRepositorySQLiteImpl (
         data.value = posts
     }
 
+    override fun shareById(id: Int) {
+        dao.shareById(id)
+        val post = dao.getById(id)
+        posts = posts.map {
+            if (it.id != id) it else it.copy(
+                shareCount = post?.shareCount ?: it.shareCount
+            )
+        }
+        data.value = posts
+    }
+
 }

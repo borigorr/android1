@@ -43,14 +43,15 @@ class PostFragment : Fragment() {
         viewModel.viewPost.value = post
         viewModel.viewPost.observe(viewLifecycleOwner) {
             binding.includedPost.likes.text = NumberHelper.intToShortString(it.likeCount)
+            binding.includedPost.shared.text = NumberHelper.intToShortString(it.shareCount)
         }
         val holder = PostViewHolder(binding.includedPost, object : OnInteractionListener {
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
-                viewModel.viewPost.value = viewModel.getByIdOrEmpty(id)
             }
 
             override fun onShare(post: Post) {
+                viewModel.shareById(post.id)
                 val intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, post.content)

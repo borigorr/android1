@@ -92,6 +92,16 @@ class PostDaoImpl(private val db: SQLiteDatabase): PostDao {
         )
     }
 
+    override fun shareById(id: Int) {
+        db.execSQL(
+            """
+           UPDATE  ${PostColumns.TABLE} SET
+               ${PostColumns.COLUMN_SHARE_COUNT} = ${PostColumns.COLUMN_SHARE_COUNT} + 1
+           WHERE id = ?;
+        """.trimIndent(), arrayOf(id)
+        )
+    }
+
     private fun map(cursor: Cursor): Post {
         with(cursor) {
             return Post(

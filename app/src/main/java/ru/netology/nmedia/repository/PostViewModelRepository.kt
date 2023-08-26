@@ -29,7 +29,12 @@ class PostViewModelRepository(context: Application) : AndroidViewModel(context) 
 
     fun getByIdOrEmpty(id: Int) = postRepository.getById(id) ?: empty.copy()
 
-    fun likeById(id: Int) = postRepository.likeById(id)
+    fun likeById(id: Int) {
+        postRepository.likeById(id)
+        if (viewPost.value?.id == id) {
+            viewPost.value = postRepository.getById(id) ?: empty
+        }
+    }
 
     fun removeById(id: Int) = postRepository.removeById(id)
 
@@ -44,6 +49,14 @@ class PostViewModelRepository(context: Application) : AndroidViewModel(context) 
 
     fun cancelEdit() {
         this.edited.value = empty.copy()
+    }
+
+    fun shareById(id: Int)
+    {
+        postRepository.shareById(id)
+        if (viewPost.value?.id == id) {
+            viewPost.value = postRepository.getById(id) ?: empty
+        }
     }
 
     fun save() {
