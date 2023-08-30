@@ -22,7 +22,7 @@ class PostViewModelRepository(context: Application) : AndroidViewModel(context) 
     val viewPost = MutableLiveData(empty)
 
     private val postRepository: PostRepository = PostRepositorySQLiteImpl(
-        AppDb.getInstance(context).postDao
+        AppDb.getInstance(context = context).postDao()
     )
 
     var data = postRepository.getAll()

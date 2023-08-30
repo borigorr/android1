@@ -4,27 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.dao.PostDao
 import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.dto.PostEntity
 
 class PostRepositorySQLiteImpl (
     private val dao: PostDao
 ) : PostRepository {
-    private var posts = dao.getAll()
+    private var posts = dao.getAll().map { it.toDto() }
     private val data = MutableLiveData(posts)
 
     override fun getAll(): LiveData<List<Post>> = data
 
     override fun getById(id: Int): Post? {
-        return dao.getById(id)
+        return dao.getById(id)?.toDto()
     }
 
     override fun likeById(id: Int) {
         dao.likeById(id)
-        posts = posts.map {
-            if (it.id != id) it else it.copy(
-                likeByMe = !it.likeByMe,
-                likeCount = if (it.likeByMe) it.likeCount - 1 else it.likeCount + 1
-            )
-        }
+        posts = dao.getAll().map { it.toDto() }
         data.value = posts
     }
 
@@ -35,26 +31,13 @@ class PostRepositorySQLiteImpl (
     }
 
     override fun save(post: Post) {
-        val id = post.id
-        val saved = dao.save(post)
-        posts = if (id == 0) {
-            listOf(saved) + posts
-        } else {
-            posts.map {
-                if (it.id != id) it else saved
-            }
-        }
-        data.value = posts
+        dao.save(PostEntity.fromDto(post))
+        data.value = dao.getAll().map { it.toDto() }
     }
 
     override fun shareById(id: Int) {
         dao.shareById(id)
-        val post = dao.getById(id)
-        posts = posts.map {
-            if (it.id != id) it else it.copy(
-                shareCount = post?.shareCount ?: it.shareCount
-            )
-        }
+        posts = dao.getAll().map { it.toDto() }
         data.value = posts
     }
 
