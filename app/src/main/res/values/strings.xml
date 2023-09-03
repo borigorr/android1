@@ -10,4 +10,9 @@
     <string name="edit_input_hint">Post</string>
     <string name="link_input_hint">Link</string>
     <string name="title_activity_main">Main activity</string>
+    <string name="google_play_unavailable">Google Api Unavailable</string>
+    <string name="notification_user_liked">User %1$s liked %2$s\'s post</string>
+    <string name="notification_user_new_post">User %1$s create new post</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
 </resources>
