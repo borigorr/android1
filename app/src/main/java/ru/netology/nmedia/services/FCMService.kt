@@ -59,7 +59,7 @@ class FCMService: FirebaseMessagingService() {
                     R.string.notification_user_new_post,
                     content.userName,
                 )
-            )
+            ).setContentText(content.text)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
@@ -112,4 +112,5 @@ data class NewPost(
     val userName: String,
     val postId: Long,
     val postAuthor: String,
+    val text: String,
 )
